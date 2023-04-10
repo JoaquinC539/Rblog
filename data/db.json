@@ -23,12 +23,6 @@
       "title": "My Fourth Post",
       "datetime": "July 01, 2021 11:17:36 AM",
       "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      "id": 5,
-      "title": "Fifth Post",
-      "datetime": "April 10, 2023 2:13:01 PM",
-      "body": "In tempus, massa ac faucibus elementum, arcu erat elementum."
     }
   ]
 }
