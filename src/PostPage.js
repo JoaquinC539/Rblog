@@ -13,12 +13,10 @@ const PostPage = () => {
   const deletePost=useStoreActions((actions)=>actions.deletePost)
   const getPostById=useStoreState((state)=>state.getPostById)
   const post=getPostById(id);
-  useStoreState((state)=>console.log("States: ",state))
-  useStoreActions((actions)=>console.log("Actions: ",actions))
   //////////////
   // const post=posts.find(post=>(post.id).toString()=== id);
 
-  const handleDelete= async (id)=>{
+  const handleDelete=  (id)=>{
     // try{
     //   await api.delete('/posts/'+id)
     // const postList=posts.filter(post=>post.id!==id);

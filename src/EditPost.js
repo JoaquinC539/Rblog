@@ -1,35 +1,51 @@
-import { useEffect,useContext,useState } from "react";
+// import { useEffect,useContext,useState } from "react";
+import { useEffect } from "react";
 import { useParams,Link,useNavigate } from "react-router-dom";
-import DataContext from "./context/DataContext";
+// import DataContext from "./context/DataContext";
 import format from "date-fns/format";
-import api from './api/posts';
+// import api from './api/posts';
+import { useStoreActions,useStoreState } from "easy-peasy";
 const EditPost = () => {
 
   const navigate=useNavigate();
-  const [editTitle,setEditTitle]=useState('');
-  const [editBody,setEditBody]=useState('');
-    const {posts,setPosts}=useContext(DataContext)
+  // const [editTitle,setEditTitle]=useState('');
+  // const [editBody,setEditBody]=useState('');
+  //   const {posts,setPosts}=useContext(DataContext)
     const {id}=useParams();
-    const post=posts.find(post=>(post.id).toString()===id);
-    useEffect(()=>{
-        if(post){
-            setEditTitle(post.title);
-            setEditBody(post.body)
-        }
-    },[post,setEditTitle,setEditBody])
+    // const post=posts.find(post=>(post.id).toString()===id);
 
-    const handleEdit=async (id)=>{
+
+      ///////////////////////////
+  // const posts=useStoreState((state)=>state.post);
+  const getPostById=useStoreState((state)=>state.getPostById)
+  const post=getPostById(id)
+  const editTitle=useStoreState((state)=>state.editTitle);
+  const editBody=useStoreState((state)=>state.editBody);
+
+  const editPost=useStoreActions((actions)=>actions.editPost);
+  const setEditTitle=useStoreActions((actions)=>actions.setEditTitle);
+  const setEditBody=useStoreActions((actions)=>actions.setEditBody);
+  /////////////////////////////
+  useEffect(()=>{
+    if(post){
+        setEditTitle(post.title);
+        setEditBody(post.body)
+    }
+},[post,setEditTitle,setEditBody])
+    const handleEdit= (id)=>{
       const datetime=format(new Date(), 'MMMM dd, yyyy pp');
       const updatedPost={id:id, title:editTitle,datetime:datetime,body:editBody};
-      try{
-        const response=await api.put('/posts/'+id,updatedPost);
-        setPosts(posts.map(post=>post.id===id?{...response.data}:post));
-        setEditTitle('');
-        setEditBody('');
-        navigate('/');
-      }catch(err){
-        console.log(err)
-      }
+      editPost(updatedPost)
+      // try{
+      //   const response=await api.put('/posts/'+id,updatedPost);
+      //   setPosts(posts.map(post=>post.id===id?{...response.data}:post));
+      //   setEditTitle('');
+      //   setEditBody('');
+      //   navigate('/');
+      // }catch(err){
+      //   console.log(err)
+      // }
+      navigate('/post/'+id);
     }
 
   return (

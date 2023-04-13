@@ -1,33 +1,44 @@
-import { useState ,useContext } from "react";
-import DataContext from "./context/DataContext";
+// import { useState ,useContext } from "react";
+// import DataContext from "./context/DataContext";
 import { useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
-import api from './api/posts';
-
+// import api from './api/posts';
+import { useStoreActions,useStoreState } from "easy-peasy";
 const NewPost = () => {
-
-  const [postTitle,setPostTitle]=useState('');
-  const [postBody,setPostBody]=useState('');
-  const {posts,setPosts}=useContext(DataContext)
   const navigate=useNavigate();
+  // const [postTitle,setPostTitle]=useState('');
+  // const [postBody,setPostBody]=useState('');
+  // const {posts,setPosts}=useContext(DataContext)
 
-  const handleSubmit=async (e)=>{
+  ///////////////////
+  const posts=useStoreState((state)=>state.posts);
+  const postTitle=useStoreState((state)=>state.postTitle);
+  const postBody=useStoreState((state)=>state.postBody);
+
+  const savePost=useStoreActions((actions)=>actions.savePost);
+  const setPostTitle=useStoreActions((actions)=>actions.setPostTitle);
+  const setPostBody=useStoreActions((actions)=>actions.setPostBody);
+////////////////////////////
+
+  const handleSubmit= (e)=>{
     e.preventDefault();
     const id=posts.length?posts[posts.length-1].id+1:1;
     const datetime=format(new Date(), 'MMMM dd, yyyy pp');
     const newPost={id:id, title:postTitle,datetime:datetime,body:postBody};
-    try{
-    const response =await api.post('/posts',newPost);    
-    const allPost=[...posts,response.data];
-    setPosts(allPost);
-    setPostTitle("");
-    setPostBody("");
-    navigate('/'); 
-    }catch(err){
-      if(err.response){
-        console.log(`Error: ${err}`);
-      }
-    }
+    savePost(newPost);
+    // try{
+    // const response =await api.post('/posts',newPost);    
+    // const allPost=[...posts,response.data];
+    // setPosts(allPost);
+    // setPostTitle("");
+    // setPostBody("");
+    // navigate('/'); 
+    // }catch(err){
+    //   if(err.response){
+    //     console.log(`Error: ${err}`);
+    //   }
+    // }
+    navigate('/');
   }
 
   return (
