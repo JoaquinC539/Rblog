@@ -1,30 +1,15 @@
 import { useParams,Link } from "react-router-dom";
-// import { useContext } from "react";
-// import DataContext from "./context/DataContext";
 import { useNavigate } from "react-router-dom";
-// import api from './api/posts';
 import { useStoreActions,useStoreState } from "easy-peasy";
 const PostPage = () => {
-  // const {posts,setPosts}=useContext(DataContext)
 
   const navigate=useNavigate();
   const {id}=useParams();
-  /////////////
   const deletePost=useStoreActions((actions)=>actions.deletePost)
   const getPostById=useStoreState((state)=>state.getPostById)
   const post=getPostById(id);
-  //////////////
-  // const post=posts.find(post=>(post.id).toString()=== id);
 
   const handleDelete=  (id)=>{
-    // try{
-    //   await api.delete('/posts/'+id)
-    // const postList=posts.filter(post=>post.id!==id);
-    // setPosts(postList);
-    // navigate('/');
-    // }catch(err){
-    //   console.log(`Error: ${err.message}`); 
-    // }
     deletePost(id);
     navigate('/');
   } 

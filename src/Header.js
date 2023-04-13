@@ -6,7 +6,7 @@ const Header = ({title}) => {
   return (
     <header className="Header">
       <h1>{title}</h1>
-      {width <786?<FaMobileAlt />:width<992 ? <FaTabletAlt />:<FaLaptop />}
+      {width <400?<FaMobileAlt />:width<760 ? <FaTabletAlt />:<FaLaptop />}
     </header>
   )
 }

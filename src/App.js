@@ -6,22 +6,22 @@ import Missing from './Missing';
 import About from './About';
 import EditPost from './EditPost';
 import {Route,Routes} from 'react-router-dom';
-// import { DataProvider } from './context/DataContext';
+
 import { useEffect } from 'react';
 import useAxiosFetch from './hooks/useAxiosFetch';
 import {useStoreActions} from 'easy-peasy';
 
 function App() {
-  ////////////
+
   const setPosts=useStoreActions((actions)=>actions.setPosts)
   const {data,fetchError,isLoading}=useAxiosFetch('http://localhost:3500/posts');
 
   useEffect(()=>{
     setPosts(data);
       },[data,setPosts])
-/////////////////
+
   return (  
-  // <DataProvider>
+
     <Routes> 
 
         <Route path='/' element={<Layout />} >   
@@ -40,7 +40,7 @@ function App() {
         </Route>
 
     </Routes>  
-  // </DataProvider>
+
     
   );
 }
