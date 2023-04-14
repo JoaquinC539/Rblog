@@ -10,7 +10,7 @@ export const DataProvider=({children})=>{
     const [searchResults,setSearchResults]=useState([]);
 
 
-    const {data,fetchError,isLoading}=useAxiosFetch('http://localhost:3500/posts');
+    const {data,fetchError,isLoading}=useAxiosFetch('http://localhost:3600/api/posts');
     useEffect(()=>{
       setPosts(data)
         },[data])
